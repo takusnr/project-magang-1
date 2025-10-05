@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+    --color-thin : #d3b960;
+    --color-middle : #607AD3;
+    --color-bold : #7C7C7C;
+}
+
+/* Atur header jadi flex agar teks + ikon sejajar */
+.datatable thead th .datatable-sorter {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important; /* jarak konsisten */
+}
+
+/* Reset margin bawaan panah */
+.datatable thead th .datatable-sorter::before,
+.datatable thead th .datatable-sorter::after {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Override default sort icons dari simple-datatables */
+.datatable-sorter::before,
+.datatable-sorter::after {
+  content: ''; /* reset bawaan */
+  border: 4px solid transparent;
+  display: block;
+  margin: 0px auto;
+}
+
+/* Panah aktif (kolom sedang di-sort naik) */
+.datatable-sorter.asc::before {
+  border-bottom-color: #2563eb !important; /* biru (blue-600) */
+}
+
+/* Panah aktif (kolom sedang di-sort turun) */
+.datatable-sorter.desc::after {
+  border-top-color: #2563eb !important;
+}
