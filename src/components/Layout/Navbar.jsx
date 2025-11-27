@@ -3,8 +3,8 @@ import { GoBell } from "react-icons/go";
 import { IoMdClose, IoIosLogOut } from "react-icons/io";
 import { IoChevronDown } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
-import { useState, useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { UserContext } from "../AuthPages/UserContext";
 import { useSidebar } from '../Layout/SidebarContext';
 
@@ -12,6 +12,8 @@ const Navbar = () => {
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
 
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
@@ -21,14 +23,6 @@ const Navbar = () => {
     e.preventDefault();
     const query = searchQuery.toLowerCase().trim();
 
-    const pages = {
-      barang: "/barang",
-      dashboard: "/dashboard",
-      laporan: "/laporan",
-      pengguna: "/pengguna",
-      riwayat: "/riwayat",
-    }
-
     if (pages[query]) {
       navigate(pages[query]);
       setSearchQuery("");
@@ -36,6 +30,30 @@ const Navbar = () => {
       alert("Halaman tidak ditemukan!");
     }
   }
+
+  const pageList = [
+  { name: "Dashboard", path: "/" },
+  { name: "Barang", path: "/barang" },
+  { name: "Laporan", path: "/laporan" },
+  { name: "Pengguna", path: "/pengguna" },
+  { name: "Riwayat", path: "/riwayat" },
+  { name: "Profil", path: "/profile" },
+];
+
+const filteredPages = pageList.filter((p) =>
+  p.name.toLowerCase().includes(searchQuery.toLowerCase())
+);
+
+  // Fungsi agar dropdown tertutup otomatis saat berpindah halaman
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsNotifOpen(false);
+    setIsProfileOpen(false);
+    setIsSearchOpen(false);
+  }, [location]);
+
+
 
   // Fungsi logout
   const handleLogout = () => {
@@ -50,20 +68,48 @@ const Navbar = () => {
     <div className={`transition-all duration-300 ${isCollapsed ? "-ml-30" : "ml-0"}`}>
       <div className="h-15 w-full bg-white border-b border-gray-200 flex pl-0 md:pl-64 justify-between">
         {/* Search Bar */}
-        <div className="border-gray-300 bg-gray-100 flex rounded-lg my-3 ml-10">
-          <form onSubmit={handleSearch} className="flex items-center">
-            <button type="submit" className="ml-3 text-2xl">
-              <CiSearch />
-            </button>
-            <input
-              type="text"
-              placeholder="Search halaman..."
-              className="ml-2 min-w-xs bg-gray-100 focus:outline-none"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </form>
+        <div className="relative">
+          <div className="border-gray-300 bg-gray-100 flex rounded-lg my-3 ml-10">
+            <form onSubmit={handleSearch} className="flex items-center">
+              <button type="submit" className="ml-3 text-2xl">
+                <CiSearch />
+              </button>
+              <input
+                type="text"
+                placeholder="Search halaman..."
+                className="ml-2 py-1 rounded-lg min-w-xs bg-gray-100 focus:outline-none"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setIsSearchOpen(e.target.value.length > 0);
+                }}
+              />
+            </form>
+          </div>
+
+          {isSearchOpen && (
+            <div className="absolute left-10 mt-1 bg-white border-gray-200 shadow-lg rounded-lg w-60 z-50 max-h-60 overflow-auto">
+              {filteredPages.length > 0 ? (
+                filteredPages.map((page, idx) => (
+                  <div
+                    key={idx}
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => {
+                      navigate(page.path);
+                      setSearchQuery("");
+                      setIsSearchOpen(false);
+                    }}
+                  >
+                    {page.name}
+                  </div>
+                ))
+              ) : (
+                <div className="px-4 py-2 text-gray-500">Tidak ditemukan</div>
+              )}
+            </div>
+          )}
         </div>
+
 
         {/* Notifikasi */}
         <div className="relative flex items-center">
@@ -84,7 +130,7 @@ const Navbar = () => {
                 </button>
               </div>
               <div className="divide-y divide-gray-100">
-                <a href="#" className="relative flex px-4 py-3 hover:bg-gray-100">
+                <a className="relative flex px-4 py-3 hover:bg-gray-100">
                   <div className="shrink-0">
                     <img
                       src="/notif/pria.jpg"
@@ -107,7 +153,7 @@ const Navbar = () => {
                     <div className="text-xs text-gray-600">5 min ago</div>
                   </div>
                 </a>
-                <a href="#" className="flex px-4 py-3 hover:bg-gray-100">
+                <a className="flex px-4 py-3 hover:bg-gray-100">
                   <div className="shrink-0">
                     <img
                       src="/notif/wanita.jpg"
@@ -131,12 +177,12 @@ const Navbar = () => {
                   </div>
                 </a>
               </div>
-              <a
-                href="#"
+              <NavLink
+                to="/riwayat"
                 className="block py-2 text-sm font-medium text-center text-gray-900 rounded-lg bg-gray-50 border border-gray-300 m-2 hover:bg-gray-100"
               >
                 <div className="inline-flex items-center">View All</div>
-              </a>
+              </NavLink>
             </div>
           )}
         </div>

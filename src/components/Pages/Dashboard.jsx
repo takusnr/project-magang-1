@@ -67,11 +67,11 @@ const Dashboard = () => {
             <div className="grid md:grid-cols-3 gap-8 pb-4">
                 <div className="max-w-sm p-6 flex bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100">
                     <FaBoxes className="w-20 h-20 p-4 text-gray-500 mr-8 bg-gray-200 rounded-sm" />
-                    <a href="" className="">
+                    <a className="">
                         <h5 className="mb-3 text-2xl font-bold tracking-tight">12454</h5>
                         <div className="flex items-center">
                             <p className="text-xl font-normal text-gray-700">Total Stok</p>
-                            <p href="" className="ms-3 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-blue-800 bg-blue-200 rounded-2xl hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-blue-100">
+                            <p className="ms-3 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-blue-800 bg-blue-200 rounded-2xl hover:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-blue-100">
                                 100%
                                 <GoArrowUpRight className="text-blue-800 ml-1"/>
                             </p>
@@ -80,11 +80,11 @@ const Dashboard = () => {
                 </div>
                 <div className="max-w-sm p-6 flex bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100">
                     <TbCubePlus className="w-20 h-20 p-4 text-gray-500 mr-8 bg-gray-200 rounded-sm" />
-                    <a href="" className="">
+                    <a className="">
                         <h5 className="mb-3 text-2xl font-bold tracking-tight">8634</h5>
                         <div className="flex items-center">
                             <p className="text-xl font-normal text-gray-700">Stok Masuk</p>
-                            <p href="" className="ms-3 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-green-800 bg-green-200 rounded-2xl hover:bg-green-300 focus:ring-4 focus:outline-none focus:ring-green-100">
+                            <p className="ms-3 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-green-800 bg-green-200 rounded-2xl hover:bg-green-300 focus:ring-4 focus:outline-none focus:ring-green-100">
                                 60%
                                 <GoArrowUpRight className="text-green-800 ml-1"/>
                             </p>
@@ -93,11 +93,11 @@ const Dashboard = () => {
                 </div>
                 <div className="max-w-sm p-6 flex bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100">
                     <FaTruckFast className="w-20 h-20 p-4 text-gray-500 mr-8 bg-gray-200 rounded-sm" />
-                    <a href="" className="">
+                    <a className="">
                         <h5 className="mb-3 text-2xl font-bold tracking-tight">3820</h5>
                         <div className="flex items-center">
                             <p className="text-xl font-normal text-gray-700">Stok Keluar</p>
-                            <p href="" className="ms-3 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-red-800 bg-red-200 rounded-2xl hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-red-100">
+                            <p className="ms-3 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-red-800 bg-red-200 rounded-2xl hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-red-100">
                                 39%
                                 <GoArrowDownRight className="text-red-800 ml-1"/>
                             </p>

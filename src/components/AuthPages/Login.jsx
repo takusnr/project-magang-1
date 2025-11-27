@@ -100,7 +100,7 @@ function LoginForm() {
                                 />
                                 <span>Remember Me</span>
                             </label>
-                            <a href="#" className="hover:underline">
+                            <a className="hover:underline">
                                 Forgot Password?
                             </a>
                         </div>
