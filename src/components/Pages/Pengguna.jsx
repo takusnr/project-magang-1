@@ -168,8 +168,8 @@ const Pengguna = () => {
 
   return (
     <div className={`transition-all duration-300 ${isCollapsed ? "-ml-30" : "ml-0"}`}>
-      <div className='p-5 mt-7 ml-0 md:ml-64'>
-        <div className='flex justify-between items-center'>
+      <div className='p-5 mt-7 ml-55 md:ml-64'>
+        <div className='flex flex-col md:flex-row md:justify-between gap-3 mb-4'>
           {/* kiri: show / search (sama style) */}
           <div className='flex items-center-safe gap-4'>
             <p>Show</p>
@@ -194,7 +194,7 @@ const Pengguna = () => {
           </div>
 
           {/* kanan: tambah + export */}
-          <div className='flex gap-3'>
+          <div className='flex gap-3 m-4'>
             <button className='flex items-center rounded-lg pr-2 text-white bg-(--color-middle) focus:outline-2 focus:outline-offset-2 focus:outline-(--color-middle) active:bg-(--color-middle)'
               onClick={openAdd}>
               <IoAdd className='text-xl m-1' />
@@ -202,7 +202,7 @@ const Pengguna = () => {
             </button>
 
             <div className='relative inline-block'>
-              <button className='flex pl-2 justify-end-safe items-center-safe rounded-lg text-white bg-(--color-middle) focus:outline-2 focus:outline-offset-2 focus:outline-(--color-middle) active:bg-(--color-middle)'
+              <button className='flex pl-2 pb-2 justify-end-safe items-center-safe rounded-lg text-white bg-(--color-middle) focus:outline-2 focus:outline-offset-2 focus:outline-(--color-middle) active:bg-(--color-middle)'
                 onClick={() => setIsExportOpen(!isExportOpen)}>
                 Export as <IoChevronDown className='text-xl m-1' />
               </button>
@@ -220,8 +220,8 @@ const Pengguna = () => {
         </div>
 
         {/* Table */}
-        <div className='p-5'>
-          <table id='default-table' ref={tableRef} className='dataTable w-full border-collapse text-sm'>
+        <div className='overflow-x-auto w-full p-5'>
+          <table id='default-table' ref={tableRef} className='min-w-[600px] dataTable w-full border-collapse text-sm'>
             <thead className='bg-white px-4 py-3 text-left font-semibold text-gray-700 whitespace-nowrap'>
               <tr>
                 <th>ID</th>

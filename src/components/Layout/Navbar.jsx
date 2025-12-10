@@ -37,7 +37,7 @@ const Navbar = () => {
   { name: "Laporan", path: "/laporan" },
   { name: "Pengguna", path: "/pengguna" },
   { name: "Riwayat", path: "/riwayat" },
-  { name: "Profil", path: "/profile" },
+  { name: "Profil", path: "/profil" },
 ];
 
 const filteredPages = pageList.filter((p) =>
@@ -68,8 +68,13 @@ const filteredPages = pageList.filter((p) =>
     <div className={`transition-all duration-300 ${isCollapsed ? "-ml-30" : "ml-0"}`}>
       <div className="h-15 w-full bg-white border-b border-gray-200 flex pl-0 md:pl-64 justify-between">
         {/* Search Bar */}
-        <div className="relative">
-          <div className="border-gray-300 bg-gray-100 flex rounded-lg my-3 ml-10">
+        <div className="relative flex items-center">
+          {/* Mobile & Tablet (Portrait & Landscape) Search Icon */}
+          <button type="submit" className="text-2xl ml-60 md:hidden" onClick={() => setIsSearchOpen(!isSearchOpen)}>
+            <CiSearch />
+          </button>
+          {/* Desktop Search Bar */}
+          <div className="hidden md:flex md:m-0 lg:ml-5 border-gray-300 bg-gray-100 rounded-lg my-3 ml-10">
             <form onSubmit={handleSearch} className="flex items-center">
               <button type="submit" className="ml-3 text-2xl">
                 <CiSearch />
@@ -77,7 +82,7 @@ const filteredPages = pageList.filter((p) =>
               <input
                 type="text"
                 placeholder="Search halaman..."
-                className="ml-2 py-1 rounded-lg min-w-xs bg-gray-100 focus:outline-none"
+                className=" ml-2 py-1 rounded-lg min-w-xs bg-gray-100 focus:outline-none"
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
@@ -88,7 +93,7 @@ const filteredPages = pageList.filter((p) =>
           </div>
 
           {isSearchOpen && (
-            <div className="absolute left-10 mt-1 bg-white border-gray-200 shadow-lg rounded-lg w-60 z-50 max-h-60 overflow-auto">
+            <div className="absolute left-55 top-15 md:left-0 lg:left-5 bg-white border-gray-200 shadow-lg rounded-lg w-60 z-50 max-h-60 overflow-auto">
               {filteredPages.length > 0 ? (
                 filteredPages.map((page, idx) => (
                   <div
@@ -104,7 +109,7 @@ const filteredPages = pageList.filter((p) =>
                   </div>
                 ))
               ) : (
-                <div className="px-4 py-2 text-gray-500">Tidak ditemukan</div>
+                <div className="px-4 py-2 text-gray-500">Tidak ada halaman</div>
               )}
             </div>
           )}
@@ -112,79 +117,81 @@ const filteredPages = pageList.filter((p) =>
 
 
         {/* Notifikasi */}
-        <div className="relative flex items-center">
-          <button
-            type="button"
-            onClick={() => setIsNotifOpen(!isNotifOpen)}
-            className="text-2xl ml-130 relative flex items-center text-center hover:text-gray-900 focus:outline-none"
-          >
-            <GoBell />
-            <div className="absolute block w-3 h-3 bg-red-500 border-2 border-white rounded-full -top-0.5 start-3.5"></div>
-          </button>
-          {isNotifOpen && (
-            <div className="absolute top-0 right-0 mt-13 z-20 w-80 max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow-sm">
-              <div className="flex items-center justify-between px-4 py-2 font-medium text-gray-700 rounded-t-lg bg-gray-50">
-                Notifikasi
-                <button onClick={() => setIsNotifOpen(false)}>
-                  <IoMdClose />
-                </button>
-              </div>
-              <div className="divide-y divide-gray-100">
-                <a className="relative flex px-4 py-3 hover:bg-gray-100">
-                  <div className="shrink-0">
-                    <img
-                      src="/notif/pria.jpg"
-                      alt=""
-                      className="rounded-full w-11 h-11"
-                    />
-                    <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-green-600 border border-white rounded-full"></div>
-                  </div>
-                  <div className="w-full ps-3">
-                    <div className="text-gray-500 text-sm mb-1.5">
-                      <span className="font-semibold text-gray-900">
-                        Brandon Salim
-                      </span>{" "}
-                      minta izin untuk mengubah
-                      <span className="font-semibold text-gray-900">
-                        {" "}
-                        Barang No Seri #20460
-                      </span>
+        <div className="flex items-center space-x-4">
+          <div className="relative flex items-center">
+            <button
+              type="button"
+              onClick={() => setIsNotifOpen(!isNotifOpen)}
+              className="text-2xl ml-100 mr-10 md:ml-130 md:mr-10 lg:ml-130 relative flex items-center text-center hover:text-gray-900 focus:outline-none"
+            >
+              <GoBell />
+              <div className="absolute block w-3 h-3 bg-red-500 border-2 border-white rounded-full -top-0.5 start-3.5"></div>
+            </button>
+            {isNotifOpen && (
+              <div className="absolute top-0 right-2 md:right-10 mt-13 z-20 w-80 max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow-sm">
+                <div className="flex items-center justify-between px-4 py-2 font-medium text-gray-700 rounded-t-lg bg-gray-50">
+                  Notifikasi
+                  <button onClick={() => setIsNotifOpen(false)}>
+                    <IoMdClose />
+                  </button>
+                </div>
+                <div className="divide-y divide-gray-100">
+                  <a className="relative flex px-4 py-3 hover:bg-gray-100">
+                    <div className="shrink-0">
+                      <img
+                        src="/notif/pria.jpg"
+                        alt=""
+                        className="rounded-full w-11 h-11"
+                      />
+                      <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-green-600 border border-white rounded-full"></div>
                     </div>
-                    <div className="text-xs text-gray-600">5 min ago</div>
-                  </div>
-                </a>
-                <a className="flex px-4 py-3 hover:bg-gray-100">
-                  <div className="shrink-0">
-                    <img
-                      src="/notif/wanita.jpg"
-                      alt=""
-                      className="rounded-full w-11 h-11"
-                    />
-                    <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-red-600 border border-white rounded-full"></div>
-                  </div>
-                  <div className="w-full ps-3">
-                    <div className="text-gray-500 text-sm mb-1.5">
-                      <span className="font-semibold text-gray-900">
-                        Bonnie Livingston
-                      </span>{" "}
-                      minta izin untuk mengubah
-                      <span className="font-semibold text-gray-900">
-                        {" "}
-                        Barang No Seri #20465
-                      </span>
+                    <div className="w-full ps-3">
+                      <div className="text-gray-500 text-sm mb-1.5">
+                        <span className="font-semibold text-gray-900">
+                          Brandon Salim
+                        </span>{" "}
+                        minta izin untuk mengubah
+                        <span className="font-semibold text-gray-900">
+                          {" "}
+                          Barang No Seri #20460
+                        </span>
+                      </div>
+                      <div className="text-xs text-gray-600">5 min ago</div>
                     </div>
-                    <div className="text-xs text-gray-600">1 hr ago</div>
-                  </div>
-                </a>
+                  </a>
+                  <a className="flex px-4 py-3 hover:bg-gray-100">
+                    <div className="shrink-0">
+                      <img
+                        src="/notif/wanita.jpg"
+                        alt=""
+                        className="rounded-full w-11 h-11"
+                      />
+                      <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-red-600 border border-white rounded-full"></div>
+                    </div>
+                    <div className="w-full ps-3">
+                      <div className="text-gray-500 text-sm mb-1.5">
+                        <span className="font-semibold text-gray-900">
+                          Bonnie Livingston
+                        </span>{" "}
+                        minta izin untuk mengubah
+                        <span className="font-semibold text-gray-900">
+                          {" "}
+                          Barang No Seri #20465
+                        </span>
+                      </div>
+                      <div className="text-xs text-gray-600">1 hr ago</div>
+                    </div>
+                  </a>
+                </div>
+                <NavLink
+                  to="/riwayat"
+                  className="block py-2 text-sm font-medium text-center text-gray-900 rounded-lg bg-gray-50 border border-gray-300 m-2 hover:bg-gray-100"
+                >
+                  <div className="inline-flex items-center">View All</div>
+                </NavLink>
               </div>
-              <NavLink
-                to="/riwayat"
-                className="block py-2 text-sm font-medium text-center text-gray-900 rounded-lg bg-gray-50 border border-gray-300 m-2 hover:bg-gray-100"
-              >
-                <div className="inline-flex items-center">View All</div>
-              </NavLink>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {/* Profil Pengguna */}
@@ -194,15 +201,15 @@ const filteredPages = pageList.filter((p) =>
             className="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-(--color-middle) md:me-0 focus:ring-4 focus:ring-gray-100"
           >
             <img
-              src="/profil/avatar-1.jpg"
+              src={user?.photo || "/profil/avatar-1.jpg"}
               alt="avatar-1"
-              className="rounded-full w-8 h-8 me-2"
+              className="rounded-full w-8 h-8 me-13 md:me-2"
             />
-            {user?.name || "Guest"}
-            <IoChevronDown className="w-4 h-4 ms-3" />
+            <span className="hidden md:block md:w-30 lg:w-22">{user?.name || "Guest"}</span>
+            <IoChevronDown className="hidden md:block md:w-5 md:h-5 ms-3" />
           </button>
           {isProfileOpen && (
-            <div className="absolute top-0 left-0 mt-13 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
+            <div className="absolute top-0 -right-13 md:left-0  mt-13 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
               <div className="px-4 py-3 text-sm text-gray-900 text-center">
                 <div className="font-medium">{user?.role || "User"}</div>
                 <div>{user?.email || "Tidak ada email"}</div>

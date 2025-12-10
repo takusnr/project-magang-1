@@ -82,7 +82,7 @@ const Barang = () => {
   ])
 
   // State tampilan table dari simple-datatable
-  const tableRef = useRef(null);
+  const tableRef = useRef(null)
   // Fungsi untuk mematikan fitur filter dan pagination dari simple-datatable
   useEffect(() => {
     if (tableRef.current) {
@@ -96,7 +96,7 @@ const Barang = () => {
   }, [])
 
   // State untuk Search
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("")
   // Fungsi untuk filter barang di bagian search
     const filteredBarang = dataBarang.filter(item =>
       item.noSeri.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -106,16 +106,16 @@ const Barang = () => {
     )
 
   // State untuk Pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(5)
   // Pagination (ambil data sesuai halaman aktif)
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredBarang.slice(indexOfFirstItem, indexOfLastItem);
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentItems = filteredBarang.slice(indexOfFirstItem, indexOfLastItem)
   const totalPages = Math.ceil(filteredBarang.length / itemsPerPage)
 
   // State Modal Tambah Barang
-  const [isAddOpen, setIsAddOpen] = useState(false);
+  const [isAddOpen, setIsAddOpen] = useState(false)
   // Tambah state untuk form tambah barang
   const [newBarang, setNewBarang] = useState({
       tanggal: "",
@@ -135,7 +135,7 @@ const Barang = () => {
     // Cek kalau No Seri kosong
     if (!newBarang.noSeri || !newBarang.nama) {
       alert("No. Seri dan Nama Barang wajib diisi!");
-      return;
+      return
     }
   // Hitung selisih otomatis
   const jumlahStok = Number(newBarang.jumlahStok) || 0;
@@ -170,9 +170,9 @@ const Barang = () => {
 
   
   // State Modal Edit Barang
-  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false)
   // State menyimpan data barang yang mau diedit
-  const [editData, setEditData] = useState(null);
+  const [editData, setEditData] = useState(null)
   // Fungsi update data
   function handleUpdateBarang(e) {
     e.preventDefault();
@@ -189,34 +189,34 @@ const Barang = () => {
   }
 
   // State Dropdown Ekspor Data
-  const [isExportOpen, setIsExportOpen] = useState(false);
+  const [isExportOpen, setIsExportOpen] = useState(false)
   // Export ke CSV
   const handleExportCSV = () => {
-    const table = tableRef.current;
-    const wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
-    const csv = XLSX.utils.sheet_to_csv(wb.Sheets["Sheet1"]);
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    saveAs(blob, "data-barang.csv");
+    const table = tableRef.current
+    const wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" })
+    const csv = XLSX.utils.sheet_to_csv(wb.Sheets["Sheet1"])
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" })
+    saveAs(blob, "data-barang.csv")
   }
   // Export ke Excel
   const handleExportExcel = () => {
-    const table = tableRef.current;
-    const wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
-    const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-    saveAs(new Blob([wbout], {type: "application/octet-stream"}), "data-barang.xlsx");
+    const table = tableRef.current
+    const wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" })
+    const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" })
+    saveAs(new Blob([wbout], {type: "application/octet-stream"}), "data-barang.xlsx")
   }
   // Export ke PDF
   const handleExportPDF = () => {
     if (!dataBarang || dataBarang.length === 0) {
-      alert("Tidak ada data untuk diekspor.");
-      return;
+      alert("Tidak ada data untuk diekspor.")
+      return
     }
 
   const doc = new jsPDF("l", "mm", "a4"); // l = landscape
-  doc.text("Data Barang", 14, 10);
+  doc.text("Data Barang", 14, 10)
 
   // Header tabel
-  const head = [["Tanggal", "No Seri", "Gambar", "Barang", "Jumlah Stok", "Jumlah Fisik", "Selisih", "Lokasi", "Kategori", "Status",]];
+  const head = [["Tanggal", "No Seri", "Gambar", "Barang", "Jumlah Stok", "Jumlah Fisik", "Selisih", "Lokasi", "Kategori", "Status",]]
 
   // Data isi tabel
   const body = dataBarang.map((item) => [
@@ -230,7 +230,7 @@ const Barang = () => {
     item.lokasi,
     item.kategori,
     item.status,
-  ]);
+  ])
 
   // Generate tabel ke PDF
   autoTable(doc, {
@@ -239,25 +239,25 @@ const Barang = () => {
     startY: 20,
     styles: { fontSize: 10 },
     headStyles: { fillColor: [41, 128, 185] },
-  });
+  })
 
-  doc.save("data-barang.pdf");
+  doc.save("data-barang.pdf")
 }
 
   // Fungsi hapus barang
   function deleteBarang(noSeri) {
     if (confirm("Yakin ingin hapus barang ini?")) {
-      setDataBarang(dataBarang.filter((item) => item.noSeri !== noSeri));
+      setDataBarang(dataBarang.filter((item) => item.noSeri !== noSeri))
     }
   }
 
-  const { isCollapsed } = useSidebar();
+  const { isCollapsed } = useSidebar()
 
   return (
     // Tampilan Halaman Daftar Barang
     <div className={`transition-all duration-300 ${isCollapsed ? "-ml-30" : "ml-0"}`}>
-      <div className='p-5 mt-7 ml-0 md:ml-64'>
-        <div className='flex justify-between items-center'>
+      <div className='p-5 mt-7 ml-55 md:ml-64'>
+        <div className='flex flex-col md:flex-row md:justify-between gap-3 mb-4'>
           {/* Bagian Kanan (Tampilan Pcs Data & Search Bar) */}
           <div className='flex items-center-safe gap-4'>
             <p>Show</p>
@@ -281,7 +281,7 @@ const Barang = () => {
             </div>
           </div>
             {/* Bagian Kiri (Tombol Modal Tambah Barang dan Edit Barang) */}
-            <div className='flex gap-3'>
+            <div className='flex gap-3 m-4'>
               <button className='flex items-center rounded-lg pr-2 text-white bg-(--color-middle) focus:outline-2 focus:outline-offset-2 focus:outline-(--color-middle) active:bg-(--color-middle)'
                     onClick={() => {
                       // Auto generate No Seri
@@ -306,7 +306,7 @@ const Barang = () => {
             </button>
             {/* Tombol Dropdown Ekspor Data */}
               <div className='relative inline-block'>
-              <button className='flex pl-2 justify-end-safe items-center-safe rounded-lg text-white bg-(--color-middle) focus:outline-2 focus:outline-offset-2 focus:outline-(--color-middle) active:bg-(--color-middle)'
+              <button className='flex pl-2 pb-2 justify-center items-center rounded-lg text-white bg-(--color-middle) focus:outline-2 focus:outline-offset-2 focus:outline-(--color-middle) active:bg-(--color-middle)'
                       onClick={() => setIsExportOpen(!isExportOpen)}>
                 Export as <IoChevronDown className='text-xl m-1' />
               </button>
@@ -331,8 +331,8 @@ const Barang = () => {
         </div>
 
         {/* Tabel Data Barang */}
-        <div className='p-5'>
-          <table id='default-table' ref={tableRef} className='dataTable w-full border-collapse text-sm'>
+        <div className='overflow-x-auto w-full p-5'>
+          <table id='default-table' ref={tableRef} className='min-w-[600px] dataTable w-full border-collapse text-sm'>
             <thead className='bg-white px-4 py-3 text-left font-semibold text-gray-700 whitespace-nowrap'>
               <tr>
               <th>Tanggal</th>

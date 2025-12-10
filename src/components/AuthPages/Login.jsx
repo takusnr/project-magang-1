@@ -40,10 +40,15 @@ function LoginForm() {
     return (
         <div className="min-h-screen flex flex-col md:flex-row">
             {/* Logo Diskominfo dan Aplikasi */}
+            <div className='md:hidden h-25 flex justify-center items-center bg-blue-900'>
+                <img src="/src/assets/logo-diskominfo.svg" alt="diskominfo-mt" className='h-8 mx-3' />
+                <div className='border-white border-r-4 pt-8'></div>
+                <img src="/src/assets/logo-magang.svg" alt="magang-mt" className='h-8 mx-3' />
+            </div>
             <div className="hidden md:flex md:w-1/2 justify-center items-center bg-blue-900">
-                <img src="/src/assets/logo-diskominfo.svg" alt="logo-diskominfo-jabar" className="w-full h-20" />
-                <div className="pb-70 border-4 border-white"></div>
-                <img src="/src/assets/logo-magang.svg" alt="logo-magang" className="w-full h-20" />
+                <img src="/src/assets/logo-diskominfo.svg" alt="logo-diskominfo-jabar" className="w-40 mx-3 h-20 lg:w-50 xl:w-full" />
+                <div className="lg:pb-40 xl:pb-70 border-4 border-white pb-30"></div>
+                <img src="/src/assets/logo-magang.svg" alt="logo-magang" className="w-40 mx-3 h-20 lg:w-50 xl:w-full" />
             </div>
 
             {/* Form Login */}
@@ -63,7 +68,7 @@ function LoginForm() {
                             name="username"
                             id="username"
                             placeholder="Username/Email"
-                            className="text-base border rounded-lg border-gray-300 p-3 w-full mb-4"
+                            className="text-xs md:text-base border rounded-lg border-gray-300 p-3 w-full mb-4"
                             onChange={e => setEmail(e.target.value)}
                             value={email}
                         />
@@ -77,7 +82,7 @@ function LoginForm() {
                                 name="password"
                                 id="password"
                                 placeholder="Input your password account"
-                                className="text-base border rounded-lg border-gray-300 p-3 w-full mb-4"
+                                className="text-xs md:text-base border rounded-lg border-gray-300 p-3 w-full mb-4"
                                 onChange={e => setPassword(e.target.value)}
                                 value={password}
                             />
@@ -98,9 +103,9 @@ function LoginForm() {
                                     id="remember"
                                     className="accent-[#607AD3]"
                                 />
-                                <span>Remember Me</span>
+                                <span className='text-xs justify-center items-center md:text-base'>Remember Me</span>
                             </label>
-                            <a className="hover:underline">
+                            <a className="text-xs justify-center items-center md:text-base hover:underline">
                                 Forgot Password?
                             </a>
                         </div>

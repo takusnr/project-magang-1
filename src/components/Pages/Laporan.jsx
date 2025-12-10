@@ -96,10 +96,10 @@ const Laporan = () => {
 
   return (
     <div className={`transition-all duration-300 ${isCollapsed ? "-ml-30" : "ml-0"}`}>
-      <div className='p-5 md:ml-64'>
+      <div className='p-5 ml-55 md:ml-64'>
         <h1 className="text-center text-3xl -mb-3">Laporan</h1>
 
-        <div className='flex justify-between items-center'>
+        <div className='flex flex-col md:flex-row md:justify-between gap-3 mb-4'>
           <div className='flex items-center gap-4'>
             <p>Show</p>
             <select onChange={(e) => setItemsPerPage(Number(e.target.value))} value={itemsPerPage} className='py-1 rounded-lg bg-gray-300'>
@@ -122,9 +122,28 @@ const Laporan = () => {
               />
             </div>
 
+            {/* Dropdown Export */}
+              <div className='relative inline-block md:hidden md:ml-auto'>
+                <button
+                  className='flex pl-2 pr-2 pb-1 whitespace-nowrap justify-center items-center rounded-lg text-white bg-(--color-middle)'
+                  onClick={() => setIsExportOpen(!isExportOpen)}
+                >
+                  Export as <IoChevronDown className='text-xl ml-1' />
+                </button>
+                {isExportOpen && (
+                  <div className='mt-2 absolute top-full right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-28'>
+                    <ul className='py-2 text-sm text-gray-700'>
+                      <li><button onClick={handleExportCSV} className='inline-flex w-full px-4 py-2 hover:bg-gray-100'><FaFileCsv className='w-4 h-4 me-1.5' />CSV</button></li>
+                      <li><button onClick={handleExportExcel} className='inline-flex w-full px-3.5 py-2 hover:bg-gray-100'><FaFileExcel className='w-4 h-4 me-1.5' />Excel</button></li>
+                      <li><button onClick={handleExportPDF} className='inline-flex w-full px-4 py-2 hover:bg-gray-100'><FaFilePdf className='w-4 h-4 me-1.5' />PDF</button></li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+
             {/* 🔹 Tombol Pilih Tanggal di baris baru dan tengah */}
-            <div className="flex justify-center w-full pt-30">
-              <div className="relative flex flex-col">
+            <div className="flex w-full -ml-160 md:-ml-0 md:justify-center pt-30">
+              <div className="relative inline-flex self-start">
                 <button
                   onClick={() => setIsDateOpen(!isDateOpen)}
                   className="inline-flex items-center text-(--color-middle) font-medium hover:underline"
@@ -164,33 +183,30 @@ const Laporan = () => {
                 )}
               </div>
             </div>
-
-
           </div>
-
           {/* Dropdown Export */}
-          <div className='relative inline-block'>
-            <button
-              className='flex pl-2 items-center rounded-lg text-white bg-(--color-middle)'
-              onClick={() => setIsExportOpen(!isExportOpen)}
-            >
-              Export as <IoChevronDown className='text-xl m-1' />
-            </button>
-            {isExportOpen && (
-              <div className='mt-2 absolute top-full right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-28'>
-                <ul className='py-2 text-sm text-gray-700'>
-                  <li><button onClick={handleExportCSV} className='inline-flex w-full px-4 py-2 hover:bg-gray-100'><FaFileCsv className='w-4 h-4 me-1.5' />CSV</button></li>
-                  <li><button onClick={handleExportExcel} className='inline-flex w-full px-3.5 py-2 hover:bg-gray-100'><FaFileExcel className='w-4 h-4 me-1.5' />Excel</button></li>
-                  <li><button onClick={handleExportPDF} className='inline-flex w-full px-4 py-2 hover:bg-gray-100'><FaFilePdf className='w-4 h-4 me-1.5' />PDF</button></li>
-                </ul>
+              <div className='hidden relative md:inline-block md:ml-auto'>
+                <button
+                  className='flex pl-2 pr-2 pb-1 whitespace-nowrap justify-center items-center rounded-lg text-white bg-(--color-middle)'
+                  onClick={() => setIsExportOpen(!isExportOpen)}
+                >
+                  Export as <IoChevronDown className='text-xl ml-1' />
+                </button>
+                {isExportOpen && (
+                  <div className='mt-2 absolute top-5 right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-28'>
+                    <ul className='py-2 text-sm text-gray-700'>
+                      <li><button onClick={handleExportCSV} className='inline-flex w-full px-4 py-2 hover:bg-gray-100'><FaFileCsv className='w-4 h-4 me-1.5' />CSV</button></li>
+                      <li><button onClick={handleExportExcel} className='inline-flex w-full px-3.5 py-2 hover:bg-gray-100'><FaFileExcel className='w-4 h-4 me-1.5' />Excel</button></li>
+                      <li><button onClick={handleExportPDF} className='inline-flex w-full px-4 py-2 hover:bg-gray-100'><FaFilePdf className='w-4 h-4 me-1.5' />PDF</button></li>
+                    </ul>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
         </div>
 
         {/* 🔹 Tabel */}
-        <div className='p-5 overflow-x-auto'>
-          <table id='default-table' ref={tableRef} className='w-full border-collapse text-sm'>
+        <div className='p-5 overflow-x-auto w-full'>
+          <table id='default-table' ref={tableRef} className='min-w-[600px] w-full border-collapse text-sm'>
             <thead className='bg-white'>
               <tr>
                 <th>Tanggal</th><th>No. Seri</th><th>Gambar</th><th>Barang</th><th>Kategori</th>

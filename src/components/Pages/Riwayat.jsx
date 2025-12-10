@@ -39,7 +39,7 @@ const Riwayat = () => {
 
   return (
     <div className={`transition-all duration-300 ${isCollapsed ? "-ml-40" : "ml-0"}`}>
-      <div className='md:ml-64'>
+      <div className='md:ml-64 ml-60'>
         <div className='flex p-4'>
           <h3 className='text-xl font-semibold text-gray-900' >Riwayat Aktifitas</h3>
         </div>

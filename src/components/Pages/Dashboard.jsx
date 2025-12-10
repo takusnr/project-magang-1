@@ -58,13 +58,13 @@ const Dashboard = () => {
 
     const seriesPie = [7543, 4911]
 
-    const { isCollapsed } = useSidebar();
+    const { isCollapsed } = useSidebar()
 
   return (
     <div className={`transition-all duration-300 ${isCollapsed ? "-ml-40" : "ml-0"}`}>
         <div className='bg-gray-50 md:ml-64 p-4'>
             {/* Header */}
-            <div className="grid md:grid-cols-3 gap-8 pb-4">
+            <div className="grid grid-cols-1 ml-85 md:m-0 md:grid-cols-3 gap-8 pb-4">
                 <div className="max-w-sm p-6 flex bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100">
                     <FaBoxes className="w-20 h-20 p-4 text-gray-500 mr-8 bg-gray-200 rounded-sm" />
                     <a className="">
@@ -107,7 +107,7 @@ const Dashboard = () => {
             </div>
 
             {/* Grafik */}
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 ml-63 md:m-0 md:grid-cols-2 gap-8">
             {/* Bar Chart */}
             <div className="">
                 <div className="max-w-xl w-full bg-white rounded-lg shadow-sm p-4 md:p-6">
@@ -136,7 +136,7 @@ const Dashboard = () => {
             </div>
             {/* Pie Chart */}
             <div className="">
-                <div className="max-w-xl w-full bg-white rounded-lg shadow-sm md:p-6">
+                <div className="max-w-xl w-full bg-white rounded-lg shadow-sm p-4 md:p-6">
                     <div className="flex justify-between pb-4 mb-4">
                         <div className="flex items-center">
                             <div>
